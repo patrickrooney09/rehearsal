@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+
+body{
+  background-color: rgba(242, 242, 242, 1);
+  font-family: 'Roboto', sans-serif;
+}
+.header{
+  background-color: white;
+  display:flex;
+  align-items: center;
+}
+
+.signIn{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 100;
+
+}
+
+.signInForm{
+  display:flex;
+  flex-direction: column;
+  margin-top: 50px;
+  width: 200px;
+}
+
+#logoutButton{
+  width: 140px;
+  height: 40px;
+  margin-left:auto;
+  color:white;
+  background-color: black;
+  font-family: 'Roboto';
+  font-size: medium;
+  border-radius: 8px;
+  border:none
+}

@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUser, user, auth } from "../firebase";
 
-const Home = () => {
-  getUser();
-
-  const [scripts, setScripts] = useState(user?.scripts);
-
-  useEffect(() => {
-    getUser();
-    console.log("USER IN HOME:", user);
-    console.log(auth.currentUser)
-  }, [scripts]);
-  console.log('hello')
+const Home =  () => {
   return (
     <div className="home">
       <p>Your Scripts</p>
@@ -19,8 +9,8 @@ const Home = () => {
         “You just gotta keep sayin` it and sayin` it and sayin` it and sayin` it
         and sayin` it”- Pulp Fiction
       </p>
-      <div className = "allScripts">      {scripts ? (
-        scripts.map((currentScript) => {
+      <div className = "allScripts">      {user.scripts ? (
+        user.scripts.map((currentScript) => {
           return (
             <div className="script">
               <div className = 'circle'></div>

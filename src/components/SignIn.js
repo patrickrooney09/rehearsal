@@ -12,22 +12,22 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
 
 
-  const handleLogin = (event) => {  
+  const handleLogin = (event) => {
     event.preventDefault()
     const auth = getAuth()
-    console.log(auth)
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+      })
+      .then(() => {
+        return getUser();
       })
       .then(() => {
         navigate("/home");
         setEmail("");
         setPassword("");
       })
-      .then(() => {
-        return getUser();
-      })
+
       .catch((error) => {
         console.log("ENTIRE ERROR", error.message);
 
@@ -68,14 +68,15 @@ const SignIn = () => {
           }]
         })
       })
+      .then(() => {
+        return getUser();
+      })
       .then(()=>{
         navigate("/home");
         setEmail("");
         setPassword("")
       })
-      .then(() => {
-        return getUser();
-      })
+
       .catch((error) => {
         if (error.message.includes("email-already-in-use")) {
           console.log("ENTIRE ERROR", error.message);

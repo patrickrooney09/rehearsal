@@ -5,7 +5,7 @@ import { getAuth, signOut } from "firebase/auth";
 const Header = () => {
   const navigate = useNavigate();
   const auth = getAuth();
-  
+
 
   return (
     <div className="header">

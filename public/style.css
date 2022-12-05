@@ -1,39 +1,159 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext");
 
-body{
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+body {
   background-color: rgba(242, 242, 242, 1);
-  font-family: 'Roboto', sans-serif;
-}
-.header{
-  background-color: white;
-  display:flex;
-  align-items: center;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.signIn{
+.home {
+  animation: fadeInAnimation ease 5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 30px;
+}
+.header {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+#header-link {
+  margin-left: 20px;
+}
+
+.sondheim-quote {
+  font-size: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 150px;
+  text-align: center;
+}
+
+.signIn {
+  animation: fadeInAnimation ease 5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 30px;
   font-weight: 100;
-
 }
 
-.signInForm{
-  display:flex;
+.signInForm {
+
+  display: flex;
   flex-direction: column;
+  align-items: center;
+
   margin-top: 50px;
   width: 200px;
 }
 
-#logoutButton{
-  width: 140px;
+input {
+  width: 200px;
+  height: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 8px;
+  border-radius: 8px;
+  border: none;
+}
+
+button {
+  width: 200px;
   height: 40px;
-  margin-left:auto;
-  color:white;
+  color: white;
   background-color: black;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: medium;
   border-radius: 8px;
-  border:none
+  border: none;
+  box-shadow: 1px 1px 3px 1px #888888;
+}
+
+.alt-button {
+  box-shadow: none;
+  background-color: rgba(242, 242, 242, 1);
+  border: 1px solid black;
+  color: black;
+  width: 170px;
+  height: 45px;
+  border-radius: 4px;
+}
+
+#logoutButton {
+  width: 140px;
+  height: 40px;
+  margin-left: auto;
+  color: white;
+  background-color: black;
+  font-family: "Roboto";
+  font-size: medium;
+  border-radius: 8px;
+  border: none;
+  box-shadow: none;
+}
+
+.single-scene {
+  display: flex;
+  justify-content: center;
+  padding-top: 120px;
+}
+.allScripts{
+  display:flex;
+}
+.script{
+  background-color: white;
+  font-size: 16px;
+  border: 1px solid black;
+  width: 245px;
+  height: 400px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 15px;
+  padding:10px;
+}
+.circle {
+  height: 50px;
+  width: 50px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+#rehearse-button{
+  color:black;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: none
+}
+
+#add-new-script{
+  background-color: rgba(242, 242, 242, 1);
+  color: black;
+  box-shadow: none;
+  border: 1px solid black;
+  height: 50px;
+  width: 200px;
+  border-radius: 0;
 }

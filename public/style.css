@@ -59,7 +59,6 @@ body {
 }
 
 .signInForm {
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,21 +117,21 @@ button {
   justify-content: center;
   padding-top: 120px;
 }
-.allScripts{
-  display:flex;
+.allScripts {
+  display: flex;
 }
-.script{
+.script {
   background-color: white;
   font-size: 16px;
   border: 1px solid black;
   width: 245px;
   height: 400px;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   margin: 15px;
-  padding:10px;
+  padding: 10px;
 }
 .circle {
   height: 50px;
@@ -141,14 +140,14 @@ button {
   border-radius: 50%;
 }
 
-#rehearse-button{
-  color:black;
+#rehearse-button {
+  color: black;
   background-color: white;
   border: 1px solid black;
-  box-shadow: none
+  box-shadow: none;
 }
 
-#add-new-script{
+#add-new-script {
   background-color: rgba(242, 242, 242, 1);
   color: black;
   box-shadow: none;
@@ -156,4 +155,39 @@ button {
   height: 50px;
   width: 200px;
   border-radius: 0;
+}
+
+.scenes {
+  display: flex;
+}
+.scene {
+  background-color: white;
+  font-size: 16px;
+  border: 1px solid black;
+  width: 245px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 15px;
+  padding: 10px;
+}
+
+.script-and-scenes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.run-lines {
+  background-color: black;
+  display: flex;
+}
+.line {
+  background-color: white;
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+  box-shadow: 1px 1px 3px 1px #888888;
 }

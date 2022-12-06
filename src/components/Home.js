@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getUser, user, auth } from "../firebase";
+import Modal from "./Modal";
 
 const Home =  () => {
   return (
@@ -41,8 +42,7 @@ const Home =  () => {
 
 
       )}</div>
-
-      <button id = "add-new-script">Add New Script</button>
+      <Modal />
     </div>
   );
 };

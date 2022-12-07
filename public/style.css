@@ -269,3 +269,21 @@ button {
   align-items: center;
   justify-content: center;
 }
+
+.build-scene{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.build-scene-form{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.built-lines{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}

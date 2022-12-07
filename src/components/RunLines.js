@@ -6,7 +6,7 @@ const RunLines = () => {
   const { sceneId, scriptId } = useParams();
   let scene = user.scripts[scriptId].scenes[sceneId];
   const lines = Object.values(scene);
-  console.log(scene)
+  console.log(scene )
 
   const [myLineCounter, setMyLineCounter] = useState(1);
   const [theirLineCounter, setTheirLineCounter] = useState(0);
@@ -16,17 +16,17 @@ const RunLines = () => {
   const [counter, setCounter] = useState(0);
 
   let nextLines = () => {
-    if (myLineCounter >= lines[0].length) {
+    if (myLineCounter >= lines.length) {
       setMyLineCounter(1);
       setTheirLineCounter(0);
-      setMyLine(lines[0][myLineCounter]);
-      setTheirLine(lines[0][theirLineCounter]);
+      setMyLine(lines[myLineCounter]);
+      setTheirLine(lines[theirLineCounter]);
       setCounter(counter + 1);
     } else {
       setMyLineCounter(myLineCounter + 2);
       setTheirLineCounter(theirLineCounter + 2);
-      setMyLine(lines[0][myLineCounter]);
-      setTheirLine(lines[0][theirLineCounter]);
+      setMyLine(lines[myLineCounter]);
+      setTheirLine(lines[theirLineCounter]);
     }
 
     console.log(theirLine);
@@ -37,8 +37,8 @@ const RunLines = () => {
     if (myLineCounter === 1) {
       setMyLineCounter(myLineCounter + 2);
       setTheirLineCounter(theirLineCounter + 2);
-      setMyLine(lines[0][myLineCounter]);
-      setTheirLine(lines[0][theirLineCounter]);
+      setMyLine(lines[myLineCounter]);
+      setTheirLine(lines[theirLineCounter]);
     }
   }, [myLineCounter, theirLineCounter, myLine, theirLine, lines]);
   return (

@@ -1,30 +1,33 @@
 import React, { useState } from "react";
 import { setDoc, doc, updateDoc } from "firebase/firestore/lite";
-import {db, auth, user, getUser} from "../firebase"
+import { db, auth, user, getUser } from "../firebase";
 import "./Modal.css";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Modal(props) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState("");
   const [role, setRole] = useState("");
-  console.log(...props.currentUser.scripts)
+  console.log(...props.currentUser.scripts);
   const handleScriptAdd = async () => {
-      toggleModal()
-     await  setDoc(doc(db, "users", auth.currentUser.uid), {
+    toggleModal();
+    await setDoc(doc(db, "users", auth.currentUser.uid), {
       email: user.email,
-      scripts: [{title: title, role:role, scenes:{}},...props.currentUser.scripts]
-
+      scripts: [
+        { title: title, role: role, scenes: {} },
+        ...props.currentUser.scripts,
+      ],
     });
     await props.setCurrentUser({
       email: user.email,
-      scripts: [{title: title, role:role, scenes:{}},...props.currentUser.scripts]
-
-    })
-    getUser()
+      scripts: [
+        { title: title, role: role, scenes: {} },
+        ...props.currentUser.scripts,
+      ],
+    });
+    getUser();
   };
-
 
   const toggleModal = () => {
     setModal(!modal);
@@ -47,7 +50,7 @@ export default function Modal(props) {
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
             <p>Add Script</p>
-            <form className="signInForm" onSubmit= {handleScriptAdd}>
+            <form className="signInForm" onSubmit={handleScriptAdd}>
               <input
                 name="title"
                 placeholder="title"
@@ -61,7 +64,7 @@ export default function Modal(props) {
                 value={role}
                 onChange={(event) => setRole(event.target.value)}
               ></input>
-              <button type = "submit" className="close-modal" >
+              <button type="submit" className="close-modal">
                 +
               </button>
 

@@ -6,8 +6,9 @@ const Script = () => {
   const { scriptId } = useParams();
   const navigate = useNavigate()
   console.log(scriptId);
-  console.log(user.scripts[scriptId]);
+  console.log(user.scripts[scriptId].scenes);
   const script = user.scripts[scriptId];
+  console.log("ANYTHING?",Object.values(script.scenes))
   return (
     <div className="script-and-scenes">
       <div className="script">
@@ -16,10 +17,12 @@ const Script = () => {
         <p>Role: {script.role}</p>
 
         <button id="rehearse-button">Read Scene</button>
-        <button id="rehearse-button">Build New Scene</button>
+        <button id="rehearse-button" onClick={()=>{
+          navigate(`/script/${scriptId}/buildscene`)
+        }}>Build New Scene</button>
       </div>
       <div className="scenes">
-        {Array.isArray(script.scenes)? script.scenes.map((currentScene, index) => {
+        {/* {Array.isArray(script.scenes[0])? script.scenes.map((currentScene, index) => {
           return (
             <div className="scene" id = {index}>
               <div className="circle"></div>Scene {index + 1}
@@ -28,7 +31,16 @@ const Script = () => {
               }}>Run Lines</button>
             </div>
           );
-        }):<div>Click Build New Scene to get started</div>}
+        }):<div>Click Build New Scene to get started</div>} */}
+        {Object.values(script.scenes).map((currentScene, index)=>{
+          console.log(currentScene)
+          return(<div className="scene" id = {index}>
+              <div className="circle"></div>Scene {index + 1}
+              <button id="rehearse-button" onClick={()=>{
+                navigate(`/script/${scriptId}/scene/${index}`)
+              }}>Run Lines</button>
+            </div>)
+        })}
       </div>
     </div>
   );

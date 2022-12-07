@@ -6,6 +6,7 @@ import Script from "./components/Script";
 import SingleScene from "./components/SingleScene";
 import RunLines from "./components/RunLines";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import BuildScene from "./components/BuildScene";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/singlescene" element={<SingleScene />} />
         <Route path = "/script/:scriptId" element = {<Script />}/>
         <Route path = "/script/:scriptId/scene/:sceneId" element = {<RunLines />} />
+        <Route path = "/script/:scriptId/buildscene" element = {<BuildScene />} />
       </Routes>
     </Router>
   );

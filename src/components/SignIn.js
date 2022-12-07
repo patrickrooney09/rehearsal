@@ -61,11 +61,11 @@ const SignIn = () => {
       .then(()=>{
         setDoc(doc(db, 'users', user.uid),{
           email: user.email,
-          scripts:[{
-            lines: ["Nothing to be done", "I'm beginning to come around to that opinion. All my life I've tried to put it from me, saying, Vladimir, be reasonable, you haven't yet tried everything. And I resumed to struggle. So there you are again."],
-            role: "Vladimir",
-            title: "Waiting for Godot"
-          }]
+          // scripts:[{
+          //   lines: ["Nothing to be done", "I'm beginning to come around to that opinion. All my life I've tried to put it from me, saying, Vladimir, be reasonable, you haven't yet tried everything. And I resumed to struggle. So there you are again."],
+          //   role: "Vladimir",
+          //   title: "Waiting for Godot"
+          // }]
         })
       })
       .then(() => {

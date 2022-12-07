@@ -23,11 +23,7 @@ const Home =  () => {
               <div className = 'circle'></div>
               <h3>{currentScript.title}</h3>
               <p>Role: {currentScript.role}</p>
-              {/* {placeholder} */}
-              <p>Scene 1</p>
-              <p>Scene 2</p>
-              <p>Scene 3</p>
-              {/* {placeholder} */}
+
               <button id = "rehearse-button" onClick={()=>{
                 navigate(`/script/${index}`)
               }}>Rehearse</button>
@@ -36,15 +32,7 @@ const Home =  () => {
         })
       ) : (
         <div className="script">
-              <div className = 'circle'></div>
-              <h3>Waiting for Godot</h3>
-              <p>Role: Estragon</p>
-              {/* {placeholder} */}
-              <p>Scene 1</p>
-              <p>Scene 2</p>
-              <p>Scene 3</p>
-              {/* {placeholder} */}
-              <button id = "rehearse-button">Rehearse</button>
+              Click add scripts to get started
             </div>
 
 

@@ -9,7 +9,7 @@ export default function Modal(props) {
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState("");
   const [role, setRole] = useState("");
-  console.log(...props.currentUser.scripts);
+  // console.log(...props.currentUser.scripts);
   const handleScriptAdd = async () => {
     toggleModal();
     await setDoc(doc(db, "users", auth.currentUser.uid), {

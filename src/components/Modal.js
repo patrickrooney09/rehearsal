@@ -10,14 +10,18 @@ export default function Modal(props) {
   const [title, setTitle] = useState("");
   const [role, setRole] = useState("");
   console.log(props)
-  const handleScriptAdd = () => {
-    toggleModal()
-     updateDoc(doc(db, "users", auth.currentUser.uid), {
+  const handleScriptAdd = async () => {
+      toggleModal()
+     await  setDoc(doc(db, "users", auth.currentUser.uid), {
       email: user.email,
       scripts: [{title: title, role:role, scenes:{}}]
 
     });
-    props.setCurrentUser(user)
+    await props.setCurrentUser({
+      email: user.email,
+      scripts: [{title: title, role:role, scenes:{}}]
+
+    })
   };
 
 
@@ -56,7 +60,7 @@ export default function Modal(props) {
                 value={role}
                 onChange={(event) => setRole(event.target.value)}
               ></input>
-              <button className="close-modal" >
+              <button type = "submit" className="close-modal" >
                 +
               </button>
 

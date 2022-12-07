@@ -19,7 +19,7 @@ const Script = () => {
         <button id="rehearse-button">Build New Scene</button>
       </div>
       <div className="scenes">
-        {script.scenes.map((currentScene, index) => {
+        {Array.isArray(script.scenes)? script.scenes.map((currentScene, index) => {
           return (
             <div className="scene" id = {index}>
               <div className="circle"></div>Scene {index + 1}
@@ -28,7 +28,7 @@ const Script = () => {
               }}>Run Lines</button>
             </div>
           );
-        })}
+        }):<div>Click Build New Scene to get started</div>}
       </div>
     </div>
   );

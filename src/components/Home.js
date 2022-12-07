@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {  user} from "../firebase";
+import { getUser, user} from "../firebase";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 
 const Home =  () => {
   const navigate = useNavigate()
   const [currentUser, setCurrentUser] = useState(user)
+  useEffect(()=>{
+    getUser()
+  },[])
   return (
     <div className="home">
       <p>Your Scripts</p>

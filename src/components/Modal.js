@@ -9,19 +9,20 @@ export default function Modal(props) {
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState("");
   const [role, setRole] = useState("");
-  console.log(props)
+  console.log(...props.currentUser.scripts)
   const handleScriptAdd = async () => {
       toggleModal()
      await  setDoc(doc(db, "users", auth.currentUser.uid), {
       email: user.email,
-      scripts: [{title: title, role:role, scenes:{}}]
+      scripts: [{title: title, role:role, scenes:{}},...props.currentUser.scripts]
 
     });
     await props.setCurrentUser({
       email: user.email,
-      scripts: [{title: title, role:role, scenes:{}}]
+      scripts: [{title: title, role:role, scenes:{}},...props.currentUser.scripts]
 
     })
+    getUser()
   };
 
 

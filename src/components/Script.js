@@ -21,7 +21,7 @@ const Script = () => {
       <div className="scenes">
         {script.scenes.map((currentScene, index) => {
           return (
-            <div className="scene">
+            <div className="scene" id = {index}>
               <div className="circle"></div>Scene {index + 1}
               <button id="rehearse-button" onClick={()=>{
                 navigate(`/script/${scriptId}/scene/${index}`)

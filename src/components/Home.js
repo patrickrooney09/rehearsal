@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {  user} from "../firebase";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 
 const Home =  () => {
   const navigate = useNavigate()
+  const [currentUser, setCurrentUser] = useState(user)
   return (
     <div className="home">
       <p>Your Scripts</p>
@@ -12,8 +13,8 @@ const Home =  () => {
         “You just gotta keep sayin` it and sayin` it and sayin` it and sayin` it
         and sayin` it”- Pulp Fiction
       </p>
-      <div className = "allScripts">      {user.scripts ? (
-        user.scripts.map((currentScript, index) => {
+      <div className = "allScripts"> {currentUser.scripts ? (
+        currentUser.scripts.map((currentScript, index) => {
           return (
             <div className="script" key = {index}>
               <div className = 'circle'></div>
@@ -46,7 +47,7 @@ const Home =  () => {
 
 
       )}</div>
-      <Modal />
+      <Modal currentUser = {currentUser} setCurrentUser = {setCurrentUser}/>
     </div>
   );
 };

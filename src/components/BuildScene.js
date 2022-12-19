@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getUser, user, db, auth } from "../firebase";
 import { setDoc, doc } from "firebase/firestore/lite";
 
 const BuildScene = () => {
   const { scriptId } = useParams();
+  const navigate = useNavigate()
   console.log(user.scripts[scriptId]);
   const [lines, setLines] = useState([]);
   const [myLine, setMyLine] = useState("");
@@ -42,6 +43,7 @@ const BuildScene = () => {
     //   ],
     // });
     getUser();
+    setLines([]);
   };
 
   return (
@@ -86,6 +88,7 @@ const BuildScene = () => {
           currentUserScripts[scriptId].scenes = currentUserScenes;
           console.log("FINAL:", currentUserScripts)
           saveScript()
+          // navigate(`/script/${scriptId}`)
         }}
       >
         Save Scene

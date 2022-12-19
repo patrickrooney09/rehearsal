@@ -6,7 +6,6 @@ const RunLines = () => {
   const { sceneId, scriptId } = useParams();
   let scene = user.scripts[scriptId].scenes[sceneId];
   const lines = Object.values(scene);
-  console.log(scene )
 
   const [myLineCounter, setMyLineCounter] = useState(1);
   const [theirLineCounter, setTheirLineCounter] = useState(0);
@@ -28,9 +27,6 @@ const RunLines = () => {
       setMyLine(lines[myLineCounter]);
       setTheirLine(lines[theirLineCounter]);
     }
-
-    console.log(theirLine);
-    console.log(myLine);
   };
 
   useEffect(() => {
@@ -44,9 +40,6 @@ const RunLines = () => {
   return (
     <div className = "rehearse">
       <div className="run-lines">
-        {/* {lines[0].map((currentLine) => {
-        return <div className="line">{currentLine}</div>;
-      })} */}
         <div className="line" key = {Math.random()}><p className = "line-text">{theirLine}</p></div>
         {reveal === false ? (
           <div className="my-line" >

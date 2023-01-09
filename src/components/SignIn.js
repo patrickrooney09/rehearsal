@@ -6,6 +6,7 @@ import { setDoc, doc } from "firebase/firestore/lite";
 
 
 const SignIn = () => {
+  console.log("1-9-2023 build")
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");

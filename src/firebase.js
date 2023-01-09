@@ -42,15 +42,28 @@ const auth = getAuth(app);
 let user;
 const getUser = async () => {
   if (auth.currentUser) {
-    const docRef = doc(db, "users", auth.currentUser.uid);
+    const docRef = await doc(db, "users", auth.currentUser.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      user = { ...docSnap.data(), id: docSnap.id };
+       user =  { ...docSnap.data(), id: docSnap.id };
+       console.log(user)
     } else {
       console.log("No such document!");
     }
   }
 };
 getUser();
+
+onAuthStateChanged(auth, (user)=> {
+  if (user) {
+    // User is signed in.
+    console.log(auth.currentUser)
+    getUser()
+  } else {
+    // No user is signed in.
+    console.log(user.email)
+  }
+});
+
 
 export { auth, db, getUser, user };

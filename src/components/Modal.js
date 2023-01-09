@@ -1,32 +1,31 @@
 import React, { useState } from "react";
-import { setDoc, doc, updateDoc } from "firebase/firestore/lite";
+import { setDoc, doc } from "firebase/firestore/lite";
 import { db, auth, user, getUser } from "../firebase";
 import "./Modal.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Modal(props) {
-  const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState("");
   const [role, setRole] = useState("");
-  // console.log(...props.currentUser.scripts);
   const handleScriptAdd = async () => {
-    toggleModal();
+
     await setDoc(doc(db, "users", auth.currentUser.uid), {
       email: user.email,
       scripts: [
         { title: title, role: role, scenes: {} },
-        ...props.currentUser.scripts,
+        ...props.scripts,
       ],
     });
-    await props.setCurrentUser({
+    await props.setScripts({
       email: user.email,
       scripts: [
         { title: title, role: role, scenes: {} },
-        ...props.currentUser.scripts,
+        ...props.scripts,
       ],
     });
     getUser();
+    toggleModal();
   };
 
   const toggleModal = () => {

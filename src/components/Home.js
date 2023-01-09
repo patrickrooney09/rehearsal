@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getUser, user, auth, db } from "../firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, getDoc, doc } from "firebase/firestore/lite";
+import {  user, auth, db } from "../firebase";
+import {  onAuthStateChanged } from "firebase/auth";
+import {  getDoc, doc } from "firebase/firestore/lite";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 
@@ -14,12 +14,9 @@ const Home = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user)=> {
       if (user) {
-        // User is signed in.
-        console.log(auth.currentUser)
         getUser()
       } else {
         // No user is signed in.
-        console.log(user.email)
       }
     });
     let user;
@@ -29,18 +26,14 @@ const Home = () => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           user = { ...docSnap.data(), id: docSnap.id };
-          console.log(user);
           return setScripts(user.scripts)
         } else {
           console.log("No such document!");
         }
       }else{
-        await console.log(auth)
+        console.log("new get user function not working")
       }
     };
-    getUser();
-    console.log('hello')
-
   },[]);
 
   return (
@@ -75,7 +68,7 @@ const Home = () => {
           <div className="script">Click add scripts to get started</div>
         )}
       </div>
-      <Modal currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      <Modal currentUser={currentUser} setCurrentUser={setCurrentUser} scripts = {scripts} setScripts = {setScripts} />
     </div>
   );
 };

@@ -17,6 +17,7 @@ const Home = () => {
         getUser()
       } else {
         // No user is signed in.
+        console.log('no user?')
       }
     });
     let user;

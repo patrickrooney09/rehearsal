@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUser, user, db, auth } from "../firebase";
-import { setDoc, doc } from "firebase/firestore/lite";
+import { setDoc, doc } from "firebase/firestore";
 
 const BuildScene = () => {
   const { scriptId } = useParams();

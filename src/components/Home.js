@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {  user, auth, db } from "../firebase";
 import {  onAuthStateChanged } from "firebase/auth";
-import {  getDoc, doc } from "firebase/firestore/lite";
+import {  getDoc, doc } from "firebase/firestore";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 

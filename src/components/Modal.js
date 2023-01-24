@@ -1,29 +1,28 @@
 import React, { useState } from "react";
-import { setDoc, doc } from "firebase/firestore/lite";
+import { setDoc, doc } from "firebase/firestore";
 import { db, auth, user, getUser } from "../firebase";
 import "./Modal.css";
-import { useNavigate } from "react-router-dom";
 
 export default function Modal(props) {
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState("");
   const [role, setRole] = useState("");
-  const handleScriptAdd = async () => {
+
+  const handleScriptAdd = async (event) => {
+    event.preventDefault();
 
     await setDoc(doc(db, "users", auth.currentUser.uid), {
       email: user.email,
-      scripts: [
-        { title: title, role: role, scenes: {} },
-        ...props.scripts,
-      ],
+      scripts: [{ title: title, role: role, scenes: {} }, ...props.scripts],
     });
-    await props.setScripts({
-      email: user.email,
-      scripts: [
-        { title: title, role: role, scenes: {} },
-        ...props.scripts,
-      ],
-    });
+
+    props.setScripts([
+      { title: title, role: role, scenes: {} },
+      ...props.scripts,
+    ]);
+    
+    setTitle("");
+    setRole("");
     getUser();
     toggleModal();
   };
@@ -66,8 +65,6 @@ export default function Modal(props) {
               <button type="submit" className="close-modal">
                 +
               </button>
-
-              {/* <button>Create Account</button> */}
             </form>
           </div>
         </div>

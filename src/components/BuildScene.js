@@ -6,7 +6,7 @@ import { setDoc, doc } from "firebase/firestore";
 const BuildScene = () => {
   const { scriptId } = useParams();
   const navigate = useNavigate()
-  console.log(user.scripts[scriptId]);
+  // console.log(user.scripts[scriptId]);
   const [lines, setLines] = useState([]);
   const [myLine, setMyLine] = useState("");
   const [theirLine, setTheirLine] = useState("");
@@ -14,7 +14,7 @@ const BuildScene = () => {
   const [currentScenesObject, setCurrentScenesObject] = useState(
     user.scripts[scriptId].scenes
   );
-  console.log(currentUser.scripts[scriptId].title);
+  // console.log(currentUser.scripts[scriptId].title);
   // console.log(currentScenesObject)
 
   const currentUserScenes = user.scripts[scriptId].scenes;

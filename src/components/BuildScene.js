@@ -1,47 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUser, user, db, auth } from "../firebase";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDocs, collection } from "firebase/firestore";
 
 const BuildScene = () => {
   const { scriptId } = useParams();
-  const navigate = useNavigate()
-  // console.log(user.scripts[scriptId]);
+  const navigate = useNavigate();
   const [lines, setLines] = useState([]);
   const [myLine, setMyLine] = useState("");
   const [theirLine, setTheirLine] = useState("");
-  const [currentUser, setCurrentUser] = useState(user);
   const [currentScenesObject, setCurrentScenesObject] = useState(
-    user.scripts[scriptId].scenes
+    {}
   );
-  // console.log(currentUser.scripts[scriptId].title);
-  // console.log(currentScenesObject)
+  const [currentUserScenes, setCurrentUserScenes] = useState({});
+  const [currentUserScripts, setCurrentUserScripts] = useState([])
 
-  const currentUserScenes = user.scripts[scriptId].scenes;
-  const currentUserScripts = user.scripts;
-  console.log("current user scenes", currentUserScenes);
-  console.log("current user scripts", currentUserScripts);
+
+  const usersCollectionRef = collection(db, "users");
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      const usersArray = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      const currentUser = usersArray.filter((currentUser) => {
+        return currentUser.email === auth.currentUser.email;
+      });
+      
+      setCurrentScenesObject(currentUser[0].scripts[scriptId])
+      setCurrentUserScenes(currentUser[0].scripts[scriptId].scenes)
+      setCurrentUserScripts(currentUser[0].scripts)
+    };
+    getUsers();
+  }, []);
 
   const submitLines = (event) => {
     event.preventDefault();
     setLines([...lines, theirLine, myLine]);
     setMyLine("");
     setTheirLine("");
-    getUser();
   };
 
   const saveScript = async () => {
     await setDoc(doc(db, "users", auth.currentUser.uid), {
       email: user.email,
-      scripts: currentUserScripts
+      scripts: currentUserScripts,
     });
-    // await setCurrentUser({
-    //   email: user.email,
-    //   scripts: [
-    //     { title: currentUser.scripts[scriptId].title, role: currentUser.scripts[scriptId].role, scenes: {} },
-    //     ...currentUser.scripts,
-    //   ],
-    // });
     getUser();
     setLines([]);
   };
@@ -73,21 +80,19 @@ const BuildScene = () => {
       </div>
       {lines.length > 0 ? (
         <div className="built-lines">
-          {lines.map((currentLine) => {
-            return <div className="single-built-lines">{currentLine}</div>;
+          {lines.map((currentLine, index) => {
+            return <div className="single-built-lines" key = {index}>{currentLine}</div>;
           })}
         </div>
       ) : (
-        <div >Enter some lines to get going!</div>
+        <div>Enter some lines to get going!</div>
       )}
       <button
         onClick={() => {
           let key = Object.keys(currentUserScenes).length;
           currentUserScenes[key] = lines;
-          console.log(currentUserScenes);
           currentUserScripts[scriptId].scenes = currentUserScenes;
-          console.log("FINAL:", currentUserScripts)
-          saveScript()
+          saveScript();
           // navigate(`/script/${scriptId}`)
         }}
       >

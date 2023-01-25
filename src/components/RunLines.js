@@ -1,44 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { user } from "../firebase";
+import { user, db, auth } from "../firebase";
 import { useParams } from "react-router-dom";
+import { getDocs, collection } from "firebase/firestore";
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 const RunLines = () => {
   const { sceneId, scriptId } = useParams();
-  let scene = user.scripts[scriptId].scenes[sceneId];
-  const lines = Object.values(scene);
+  
+  const usersCollectionRef = collection(db, "users");
 
+  const [scene, setScene] = useState([])
   const [myLineCounter, setMyLineCounter] = useState(1);
   const [theirLineCounter, setTheirLineCounter] = useState(0);
   const [reveal, setReveal] = useState(false);
-  const [myLine, setMyLine] = useState(lines[0][myLineCounter]);
-  const [theirLine, setTheirLine] = useState(lines[0][theirLineCounter]);
+  const [myLine, setMyLine] = useState("");
+  const [theirLine, setTheirLine] = useState("");
   const [counter, setCounter] = useState(0);
 
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      const usersArray =  data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      const currentUser = usersArray.filter((currentUser) => {
+        return currentUser.email === auth.currentUser.email;
+      });
+
+      console.log(currentUser[0].scripts[scriptId].scenes[sceneId])
+      setScene(currentUser[0].scripts[scriptId].scenes[sceneId])
+
+      setMyLine(scene[1])
+      setTheirLine(scene[0])
+
+    };
+    getUsers();
+  },[myLine]);
+
   let nextLines = () => {
-    if (myLineCounter >= lines.length) {
+    if (myLineCounter >= scene.length - 1) {
       setMyLineCounter(1);
       setTheirLineCounter(0);
-      setMyLine(lines[myLineCounter]);
-      setTheirLine(lines[theirLineCounter]);
+      setMyLine(scene[myLineCounter]);
+      setTheirLine(scene[theirLineCounter]);
       setCounter(counter + 1);
     } else {
       setMyLineCounter(myLineCounter + 2);
       setTheirLineCounter(theirLineCounter + 2);
-      setMyLine(lines[myLineCounter]);
-      setTheirLine(lines[theirLineCounter]);
+      setMyLine(scene[myLineCounter]);
+      setTheirLine(scene[theirLineCounter]);
     }
   };
 
-  
-
-  useEffect(() => {
-    if (myLineCounter === 1) {
-      setMyLineCounter(myLineCounter + 2);
-      setTheirLineCounter(theirLineCounter + 2);
-      setMyLine(lines[myLineCounter]);
-      setTheirLine(lines[theirLineCounter]);
-    }
-  }, [myLineCounter, theirLineCounter, myLine, theirLine, lines]);
   return (
     <div className = "rehearse">
       <div className="run-lines">

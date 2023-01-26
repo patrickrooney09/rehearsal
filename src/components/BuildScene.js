@@ -29,7 +29,7 @@ const BuildScene = () => {
       const currentUser = usersArray.filter((currentUser) => {
         return currentUser.email === auth.currentUser.email;
       });
-      
+
       setCurrentScenesObject(currentUser[0].scripts[scriptId])
       setCurrentUserScenes(currentUser[0].scripts[scriptId].scenes)
       setCurrentUserScripts(currentUser[0].scripts)
@@ -85,15 +85,15 @@ const BuildScene = () => {
           })}
         </div>
       ) : (
-        <div>Enter some lines to get going!</div>
+        <div className = "built-lines">Enter some lines to get going!</div>
       )}
-      <button
+      <button className = "built-lines"
         onClick={() => {
           let key = Object.keys(currentUserScenes).length;
           currentUserScenes[key] = lines;
           currentUserScripts[scriptId].scenes = currentUserScenes;
           saveScript();
-          // navigate(`/script/${scriptId}`)
+          navigate(`/script/${scriptId}`)
         }}
       >
         Save Scene

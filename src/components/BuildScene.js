@@ -93,7 +93,7 @@ const BuildScene = () => {
           currentUserScenes[key] = lines;
           currentUserScripts[scriptId].scenes = currentUserScenes;
           saveScript();
-          // navigate(`/script/${scriptId}`)
+          navigate(`/script/${scriptId}`)
         }}
       >
         Save Scene

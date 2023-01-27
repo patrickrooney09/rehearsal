@@ -19,6 +19,7 @@ const BuildScene = () => {
   const usersCollectionRef = collection(db, "users");
 
   useEffect(() => {
+    console.log(lines)
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
       const usersArray = data.docs.map((doc) => ({
@@ -97,6 +98,9 @@ const BuildScene = () => {
         }}
       >
         Save Scene
+      </button>
+      <button className = "built-lines">
+        Edit
       </button>
     </div>
   );

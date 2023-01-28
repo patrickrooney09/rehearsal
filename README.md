@@ -1,3 +1,7 @@
+## Hello and welcome to Rehearse!
+We are building custom flashcard technology to assist actors in the process of line memorization. This is a React App built with Firebase.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

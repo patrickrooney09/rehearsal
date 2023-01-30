@@ -96,10 +96,10 @@ const BuildScene = () => {
                   value={currentLine}
                   placeholder="their line"
                   onChange={(event) => {
-                    const currentLineEdit = lines.filter((c, i)=>{
+                    const currentLineEdit = lines.map((c, i)=>{
                       if(index === i){
                         console.log(c, "C")
-                         c = event.target.value
+                         return c = event.target.value
                       }else{
                         return c;
                       }

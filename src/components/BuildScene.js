@@ -9,17 +9,15 @@ const BuildScene = () => {
   const [lines, setLines] = useState([]);
   const [myLine, setMyLine] = useState("");
   const [theirLine, setTheirLine] = useState("");
-  const [currentScenesObject, setCurrentScenesObject] = useState(
-    {}
-  );
+  const [currentScenesObject, setCurrentScenesObject] = useState({});
   const [currentUserScenes, setCurrentUserScenes] = useState({});
-  const [currentUserScripts, setCurrentUserScripts] = useState([])
-
+  const [currentUserScripts, setCurrentUserScripts] = useState([]);
+  const [editMode, setEditMode] = useState(false);
 
   const usersCollectionRef = collection(db, "users");
 
   useEffect(() => {
-    console.log(lines)
+    console.log(lines);
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
       const usersArray = data.docs.map((doc) => ({
@@ -31,9 +29,9 @@ const BuildScene = () => {
         return currentUser.email === auth.currentUser.email;
       });
 
-      setCurrentScenesObject(currentUser[0].scripts[scriptId])
-      setCurrentUserScenes(currentUser[0].scripts[scriptId].scenes)
-      setCurrentUserScripts(currentUser[0].scripts)
+      setCurrentScenesObject(currentUser[0].scripts[scriptId]);
+      setCurrentUserScenes(currentUser[0].scripts[scriptId].scenes);
+      setCurrentUserScripts(currentUser[0].scripts);
     };
     getUsers();
   }, []);
@@ -82,26 +80,72 @@ const BuildScene = () => {
       {lines.length > 0 ? (
         <div className="built-lines">
           {lines.map((currentLine, index) => {
-            return <div className="single-built-lines" key = {index}>{currentLine}</div>;
+            if (editMode === false) {
+              return (
+                <div className="single-built-lines" key={index}>
+                  {currentLine}
+                </div>
+              );
+            }
+            if (editMode === true) {
+              console.log("CURRENT LINES:", lines)
+              return (
+                <textarea
+                  key = {index}
+                  className="line"
+                  value={currentLine}
+                  placeholder="their line"
+                  onChange={(event) => {
+                    const currentLineEdit = lines.map((c, i)=>{
+                      if(index === i){
+                        console.log(c, "C")
+                         return c = event.target.value
+                      }else{
+                        return c;
+                      }
+                    })
+                    setLines(currentLineEdit)
+                  }}
+                ></textarea>
+              );
+            }
           })}
         </div>
       ) : (
-        <div className = "built-lines">Enter some lines to get going!</div>
+        <div className="built-lines">Enter some lines to get going!</div>
       )}
-      <button className = "built-lines"
+      <button
+        className="built-lines"
         onClick={() => {
           let key = Object.keys(currentUserScenes).length;
           currentUserScenes[key] = lines;
           currentUserScripts[scriptId].scenes = currentUserScenes;
           saveScript();
-          navigate(`/script/${scriptId}`)
+          navigate(`/script/${scriptId}`);
         }}
       >
         Save Scene
       </button>
-      <button className = "built-lines">
-        Edit
-      </button>
+
+      {editMode === false ? (
+        <button
+          className="built-lines"
+          onClick={() => {
+            setEditMode(true);
+          }}
+        >
+          Edit
+        </button>
+      ) : (
+        <button
+          className="built-lines"
+          onClick={() => {
+            setEditMode(false);
+          }}
+        >
+          Save Changes
+        </button>
+      )}
     </div>
   );
 };

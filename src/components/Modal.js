@@ -10,9 +10,9 @@ export default function Modal(props) {
 
   const handleScriptAdd = async (event) => {
     event.preventDefault();
-
+    console.log(auth.currentUser.email);
     await setDoc(doc(db, "users", auth.currentUser.uid), {
-      email: user.email,
+      email: auth.currentUser.email,
       scripts: [{ title: title, role: role, scenes: {} }, ...props.scripts],
     });
 
@@ -20,7 +20,7 @@ export default function Modal(props) {
       { title: title, role: role, scenes: {} },
       ...props.scripts,
     ]);
-    
+
     setTitle("");
     setRole("");
     getUser();

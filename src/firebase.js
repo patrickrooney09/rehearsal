@@ -17,8 +17,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-
-
 // let user;
 // const getUser = async () => {
 
@@ -42,11 +40,14 @@ const auth = getAuth(app);
 let user;
 const getUser = async () => {
   if (auth.currentUser) {
-    const docRef = await doc(db, "users", auth.currentUser.uid);
+    console.log(auth);
+    const docRef = doc(db, "users", auth.currentUser.uid);
+    console.log("DOC REF:", docRef);
     const docSnap = await getDoc(docRef);
+
     if (docSnap.exists()) {
-       user =  { ...docSnap.data(), id: docSnap.id };
-       console.log(user)
+      user = { ...docSnap.data(), id: docSnap.id };
+      console.log(user);
     } else {
       console.log("No such document!");
     }
@@ -54,16 +55,15 @@ const getUser = async () => {
 };
 getUser();
 
-onAuthStateChanged(auth, (user)=> {
+onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in.
-    console.log(auth.currentUser)
-    getUser()
+    console.log(auth.currentUser);
+    getUser();
   } else {
     // No user is signed in.
-    console.log(user.email)
+    console.log(user.email);
   }
 });
-
 
 export { auth, db, getUser, user };

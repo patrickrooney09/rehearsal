@@ -1,21 +1,22 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db, getUser } from "../firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  getAuth,
+} from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore/lite";
 
-
 const SignIn = () => {
-  console.log("1-9-2023 build")
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
   const handleLogin = (event) => {
-    event.preventDefault()
-    const auth = getAuth()
+    event.preventDefault();
+    const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -49,7 +50,7 @@ const SignIn = () => {
       });
   };
 
-  const handleSubmit =  (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     let user;
@@ -59,19 +60,20 @@ const SignIn = () => {
         user = userCredential.user;
         // ...
       })
-      .then(()=>{
-        setDoc(doc(db, 'users', user.uid),{
-          email: user.email,
-          scripts:[]
-        })
-      })
+
+      // .then(() => {
+      //   return getUser();
+      // })
       .then(() => {
-        return getUser();
-      })
-      .then(()=>{
         navigate("/home");
         setEmail("");
-        setPassword("")
+        setPassword("");
+      })
+      .then(() => {
+        setDoc(doc(db, "users", auth.currentUser.uid), {
+          email: auth.currentUser.email,
+          scripts: [],
+        });
       })
 
       .catch((error) => {
@@ -83,16 +85,17 @@ const SignIn = () => {
             "Network error",
             "Try again later or check your internet connection."
           );
-        } else {
-          alert("Unknown Error", "Try again later.");
         }
+        // else {
+        //   alert("Unknown Error", "Try again later.");
+        // }
       });
   };
 
   return (
     <div className="signIn">
       <h1>REHEARSE</h1>
-      <form className="signInForm" onSubmit= {handleLogin}>
+      <form className="signInForm" onSubmit={handleLogin}>
         <input
           name="email"
           placeholder="email"

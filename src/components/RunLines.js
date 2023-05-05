@@ -6,21 +6,22 @@ import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 const RunLines = () => {
   const { sceneId, scriptId } = useParams();
-  
   const usersCollectionRef = collection(db, "users");
 
-  const [scene, setScene] = useState([])
+  const [scene, setScene] = useState([]);
   const [myLineCounter, setMyLineCounter] = useState(1);
   const [theirLineCounter, setTheirLineCounter] = useState(0);
   const [reveal, setReveal] = useState(false);
   const [myLine, setMyLine] = useState("");
-  const [theirLine, setTheirLine] = useState("");
+  const [theirLine, setTheirLine] = useState(
+    "Click next line to begin scene..."
+  );
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
-      const usersArray =  data.docs.map((doc) => ({
+      const usersArray = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
@@ -28,16 +29,10 @@ const RunLines = () => {
       const currentUser = usersArray.filter((currentUser) => {
         return currentUser.email === auth.currentUser.email;
       });
-
-      console.log(currentUser[0].scripts[scriptId].scenes[sceneId])
-      setScene(currentUser[0].scripts[scriptId].scenes[sceneId])
-
-      setMyLine(scene[1])
-      setTheirLine(scene[0])
-
+      setScene(currentUser[0].scripts[scriptId].scenes[sceneId]);
     };
     getUsers();
-  },[myLine]);
+  }, [user, sceneId, scriptId]);
 
   let nextLines = () => {
     if (myLineCounter >= scene.length - 1) {
@@ -55,11 +50,13 @@ const RunLines = () => {
   };
 
   return (
-    <div className = "rehearse">
+    <div className="rehearse">
       <div className="run-lines">
-        <div className="line" key = {Math.random()}><p className = "line-text">{theirLine}</p></div>
+        <div className="line" key={Math.random()}>
+          <p className="line-text">{theirLine}</p>
+        </div>
         {reveal === false ? (
-          <div className="my-line" >
+          <div className="my-line">
             <p></p>
             <button
               onClick={() => {
@@ -70,7 +67,7 @@ const RunLines = () => {
             </button>
           </div>
         ) : (
-          <div className="my-line" key = {Math.random()}>
+          <div className="my-line" key={Math.random()}>
             <p>{myLine}</p>
             <button
               onClick={() => {
@@ -82,7 +79,7 @@ const RunLines = () => {
           </div>
         )}
       </div>
-      <div className = "run-lines-info">
+      <div className="run-lines-info">
         <button
           onClick={() => {
             nextLines();
